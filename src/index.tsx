@@ -5,17 +5,15 @@ import App from './App';
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import reportWebVitals from './reportWebVitals';
 
-const client = new ApolloClient({
-  uri: "https://countries.nausicaa.wilders.dev/",
-  credentials: "include",
-  cache: new InMemoryCache({
-    addTypename: false,
-  }),
-});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  uri: "https://countries.nausicaa.wilders.dev/",
+});
 root.render(
   <React.StrictMode>
      <ApolloProvider client={client}>

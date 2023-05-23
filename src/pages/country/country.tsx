@@ -1,25 +1,56 @@
+import { useLazyQuery, useQuery } from "@apollo/client";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Header from "../../components/header/header";
+import { gql } from "@apollo/client";
+import { GET_CONTINENT } from "../../components/graphql/queries/continent";
+
+
+
 
 const Country = () => {
-    return (
-        <div className="">
-            <Header/>
+
+    const location = useLocation();
+    const code = location.state.code;
+
+    const { loading, error, data } = useQuery(GET_CONTINENT,{
+        variables: {code: code},
+    });
+
+
+    if (loading) {
+      return <p>Loading...</p>;
+    }
+  
+    if (error) {
+      return <p>Error: {error.message}</p>;
+    }
+
+
+    if (data) {
+
+        return (
             <div className="">
+                <Header />
+                <div className="">
                 <div className="">
                     <h3 className="">
-                        PAYS
+                    PAYS
                     </h3>
-                    <div>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis
-                        incidunt distinctio deleniti, explicabo eum fuga soluta. Ipsa sit
-                        omnis nihil reprehenderit sunt excepturi voluptatum autem, soluta
-                        magni cupiditate explicabo quis.
-                    </div>
-
+                    <ul>
+                        {data.continent.countries.map((countries: any) => (
+                        <li key={countries.code}>
+                            <Link to={`/details/${countries.code}`} state={{ code: countries.code }}>{countries.name} ({countries.code})</Link>
+                        </li>
+                        ))}
+                    </ul>
+                </div>
                 </div>
             </div>
-        </div>
-    );
-}
+        );
+    }
+
+    return <p>Loading...</p>;
+};
 
 export default Country;

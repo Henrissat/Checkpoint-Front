@@ -1,6 +1,7 @@
 import Header from "../../components/header/header";
-import { useQuery } from 'react-apollo';
+import { useQuery } from '@apollo/client';
 import { GET_CONTINENTS } from "../../components/graphql/queries/continents";
+import { Link } from "react-router-dom";
 
 // interface Continents {
 //     code: string
@@ -18,7 +19,6 @@ const Continents = () => {
       return <p>Error: {error.message}</p>;
     }
 
-    console.log('data', data)
 
     return (
         <div className="">
@@ -31,7 +31,7 @@ const Continents = () => {
                     <ul>
                         {data.continents.map((continent: any) => (
                         <li key={continent.code}>
-                            <a>{continent.name} ({continent.code})</a>
+                            <Link to={`/country/${continent.code}`} state={{ code: continent.code }}>{continent.name} ({continent.code})</Link>
                         </li>
                         ))}
                     </ul>

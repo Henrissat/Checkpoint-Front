@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import React from 'react';
 import './App.css';
 import Continents from "./pages/continents/continents";
 import Country from "./pages/country/country";
@@ -11,8 +10,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Continents />}/>
-        <Route path="/country" element={<Country />}/>
-        <Route path="/details" element={<DetailsCountry />}/>
+        <Route path={`/country/:code`} element={<Country/>}/>
+        <Route path={`/details/:code`} element={<DetailsCountry />}/>
       </Routes>
     </BrowserRouter>
   );

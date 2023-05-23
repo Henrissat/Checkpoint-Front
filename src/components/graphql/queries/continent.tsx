@@ -1,11 +1,11 @@
-import { gql } from "apollo-boost";
-const continentCode = "AF"
+import { gql } from "@apollo/client";
 
 export const GET_CONTINENT = gql`
-    query {
-        continent(code: $continentCode) {
+    query GetContinent($code: ID!){
+        continent(code: $code) {
             countries {
-            name
+                code
+                name
             }
         }
     }
